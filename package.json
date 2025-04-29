@@ -23,15 +23,9 @@
     "axios": "^1.9.0"
   },
   "devDependencies": {
-    "netlify-cli": "^4.15.0"
+    "netlify-cli": "^15.10.0"
   },
   "netlify": {
     "functions": "netlify/functions"
   }
 }
-
-
-
-
-
-
