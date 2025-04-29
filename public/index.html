@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Weather App</title>
+  <style>
+    body {
+      background: #f5f7fa;
+      color: #333;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      margin: 20px 0;
+    }
+    form {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+    input[type="text"] {
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      width: 300px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #4f46e5;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background-color: #4338ca;
+    }
+    .weather {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 350px;
+      display: none;
+    }
+    .weather h2 {
+      margin-top: 0;
+    }
+    .info, .forecast-day {
+      font-size: 1.1rem;
+      margin: 10px 0;
+    }
+    .forecast {
+      margin-top: 20px;
+    }
+    .forecast-day {
+      border-top: 1px solid #eee;
+      padding-top: 10px;
+    }
+    img.weather-icon {
+      width: 64px;
+      height: 64px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Weather Forecast</h1>
+
+  <form id="weather-form">
+    <input type="text" id="city" placeholder="Enter city..." required />
+    <button type="submit">Get Weather</button>
+  </form>
+
+  <div class="weather" id="weather">
+    <h2 id="weather-city"></h2>
+    <img id="current-icon" class="weather-icon" src="" alt="" />
+    <div class="info" id="weather-condition"></div>
+    <div class="info" id="weather-temp"></div>
+    <div class="info" id="weather-humidity"></div>
+    <div class="info" id="weather-wind"></div>
+
+    <div class="forecast" id="forecast"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById('weather-form');
+    const cityInput = document.getElementById('city');
+    const weatherDiv = document.getElementById('weather');
+    const weatherCity = document.getElementById('weather-city');
+    const currentIcon = document.getElementById('current-icon');
+    const weatherCondition = document.getElementById('weather-condition');
+    const weatherTemp = document.getElementById('weather-temp');
+    const weatherHumidity = document.getElementById('weather-humidity');
+    const weatherWind = document.getElementById('weather-wind');
+    const forecastDiv = document.getElementById('forecast');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const city = cityInput.value.trim();
+      if (!city) return;
+
+      try {
+        const response = await fetch(`/weather?city=${encodeURIComponent(city)}`);
+        const data = await response.json();
+
+        if (data.error) {
+          weatherDiv.style.display = 'none';
+          alert(data.error.message || data.error || 'Error fetching weather data');
+          return;
+        }
+
+        weatherCity.textContent = `${data.city}, ${data.country}`;
+        weatherCondition.textContent = `Condition: ${data.condition}`;
+        currentIcon.src = "https:" + data.icon;
+        currentIcon.alt = data.condition;
+        weatherTemp.textContent = `Temperature: ${data.temperature}°C`;
+        weatherHumidity.textContent = `Humidity: ${data.humidity}%`;
+        weatherWind.textContent = `Wind Speed: ${data.windSpeed} km/h`;
+        weatherDiv.style.display = 'block';
+
+        forecastDiv.innerHTML = '';
+        data.forecast.forEach(day => {
+          const dayDiv = document.createElement('div');
+          dayDiv.className = 'forecast-day';
+          dayDiv.innerHTML = `
+            <strong>${day.date}</strong><br/>
+            <img src="https:${day.icon}" class="weather-icon" alt="${day.condition}" /><br/>
+            ${day.condition}<br/>
+            Max: ${day.maxTemp}°C, Min: ${day.minTemp}°C
+          `;
+          forecastDiv.appendChild(dayDiv);
+        });
+
+      } catch (error) {
+        weatherDiv.style.display = 'none';
+        alert('Failed to fetch weather data.');
+      }
+    });
+  </script>
+</body>
+</html>
+
+
+
+
