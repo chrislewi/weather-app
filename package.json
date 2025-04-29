@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node netlify/functions/weather.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "netlify dev",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "echo 'Build command needs to be defined here'"
   },
   "repository": {
     "type": "git",
@@ -21,7 +22,12 @@
   "dependencies": {
     "axios": "^1.9.0"
   },
-  "netlify": {
-    "functions": "netlify/functions"
+  "devDependencies": {
+    "netlify-cli": "^4.15.0"
   }
 }
+
+
+
+
+

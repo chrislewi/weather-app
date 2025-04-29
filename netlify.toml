@@ -1,0 +1,6 @@
+[build]
+publish = "public"  # Points to the 'public' directory for deployment
+functions = "netlify/functions"
+
+[context.production.environment]
+NODE_ENV = "production"
