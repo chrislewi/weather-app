@@ -10,11 +10,18 @@
     "type": "git",
     "url": "git+https://github.com/chrislewi/weather-app.git"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chrislewi/weather-app/issues"
+  },
+  "homepage": "https://github.com/chrislewi/weather-app#readme",
+  "description": "",
   "dependencies": {
     "axios": "^1.9.0"
   },
-  "license": "ISC"
+  "netlify": {
+    "functions": "netlify/functions"
+  }
 }
-
-
-
