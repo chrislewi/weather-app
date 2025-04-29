@@ -5,22 +5,28 @@
   "scripts": {
     "start": "netlify dev",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "echo 'No build command'"
+    "build": "echo 'Build step not required'"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/chrislewi/weather-app.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "weather",
+    "netlify",
+    "serverless",
+    "javascript"
+  ],
+  "author": "Your Name",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/chrislewi/weather-app/issues"
   },
   "homepage": "https://github.com/chrislewi/weather-app#readme",
-  "description": "",
+  "description": "A simple weather app built with Netlify serverless functions and weatherapi.com.",
   "dependencies": {
-    "axios": "^1.9.0"
+    "dotenv": "^16.5.0",
+    "node-fetch": "^2.7.0"
   },
   "devDependencies": {
     "netlify-cli": "^15.10.0"

@@ -123,7 +123,8 @@
 
       try {
         // Fetch weather data from backend (Netlify function)
-        const response = await fetch(`/weather?city=${encodeURIComponent(city)}`);
+        const response = await fetch(`/.netlify/functions/weather?city=${encodeURIComponent(city)}`);
+
 
         // Check if the response is OK
         if (!response.ok) {
