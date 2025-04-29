@@ -1,6 +1,9 @@
 [build]
-publish = "public"  # Points to the 'public' directory for deployment
-functions = "netlify/functions"
+  command = "npm install && npm run build"
+  publish = "public"
 
-[context.production.environment]
-NODE_ENV = "production"
+[functions]
+  directory = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "16"  # Adjust to your Node.js version requirement

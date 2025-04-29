@@ -72,6 +72,10 @@
       width: 64px;
       height: 64px;
     }
+    .loading {
+      font-size: 1.2rem;
+      color: #333;
+    }
   </style>
 </head>
 <body>
@@ -81,6 +85,8 @@
     <input type="text" id="city" placeholder="Enter city..." required />
     <button type="submit">Get Weather</button>
   </form>
+
+  <div class="loading" id="loading" style="display: none;">Loading...</div>
 
   <div class="weather" id="weather">
     <h2 id="weather-city"></h2>
@@ -104,22 +110,36 @@
     const weatherHumidity = document.getElementById('weather-humidity');
     const weatherWind = document.getElementById('weather-wind');
     const forecastDiv = document.getElementById('forecast');
+    const loadingDiv = document.getElementById('loading');
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const city = cityInput.value.trim();
       if (!city) return;
 
+      // Show loading message
+      loadingDiv.style.display = 'block';
+      weatherDiv.style.display = 'none';  // Hide weather div during fetch
+
       try {
+        // Fetch weather data
         const response = await fetch(`/weather?city=${encodeURIComponent(city)}`);
+
+        // Check if the response is OK
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+
         const data = await response.json();
 
+        // Handle any errors returned from the API
         if (data.error) {
           weatherDiv.style.display = 'none';
           alert(data.error.message || data.error || 'Error fetching weather data');
           return;
         }
 
+        // Update UI with fetched data
         weatherCity.textContent = `${data.city}, ${data.country}`;
         weatherCondition.textContent = `Condition: ${data.condition}`;
         currentIcon.src = "https:" + data.icon;
@@ -127,8 +147,9 @@
         weatherTemp.textContent = `Temperature: ${data.temperature}°C`;
         weatherHumidity.textContent = `Humidity: ${data.humidity}%`;
         weatherWind.textContent = `Wind Speed: ${data.windSpeed} km/h`;
-        weatherDiv.style.display = 'block';
+        weatherDiv.style.display = 'block';  // Show weather div
 
+        // Populate the forecast
         forecastDiv.innerHTML = '';
         data.forecast.forEach(day => {
           const dayDiv = document.createElement('div');
@@ -141,15 +162,18 @@
           `;
           forecastDiv.appendChild(dayDiv);
         });
-
+        
       } catch (error) {
         weatherDiv.style.display = 'none';
-        alert('Failed to fetch weather data.');
+        alert('Failed to fetch weather data. Please try again later.');
+      } finally {
+        loadingDiv.style.display = 'none';  // Hide loading message
       }
     });
   </script>
 </body>
 </html>
+
 
 
 

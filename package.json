@@ -5,7 +5,7 @@
   "scripts": {
     "start": "netlify dev",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "echo 'Build command needs to be defined here'"
+    "build": "echo 'No build command'"
   },
   "repository": {
     "type": "git",
@@ -24,8 +24,12 @@
   },
   "devDependencies": {
     "netlify-cli": "^4.15.0"
+  },
+  "netlify": {
+    "functions": "netlify/functions"
   }
 }
+
 
 
 
