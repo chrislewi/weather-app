@@ -1,0 +1,20 @@
+{
+  "name": "weather-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node netlify/functions/weather.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chrislewi/weather-app.git"
+  },
+  "dependencies": {
+    "axios": "^1.9.0"
+  },
+  "license": "ISC"
+}
+
+
+
