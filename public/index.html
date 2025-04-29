@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -122,7 +122,7 @@
       weatherDiv.style.display = 'none';  // Hide weather div during fetch
 
       try {
-        // Fetch weather data
+        // Fetch weather data from backend (Netlify function)
         const response = await fetch(`/weather?city=${encodeURIComponent(city)}`);
 
         // Check if the response is OK
@@ -142,7 +142,7 @@
         // Update UI with fetched data
         weatherCity.textContent = `${data.city}, ${data.country}`;
         weatherCondition.textContent = `Condition: ${data.condition}`;
-        currentIcon.src = "https:" + data.icon;
+        currentIcon.src = "https:" + data.icon;  // Make sure the icon URL is correct
         currentIcon.alt = data.condition;
         weatherTemp.textContent = `Temperature: ${data.temperature}°C`;
         weatherHumidity.textContent = `Humidity: ${data.humidity}%`;
@@ -171,8 +171,12 @@
       }
     });
   </script>
+
+  <script src="/js/main.js" defer></script>
+
 </body>
 </html>
+
 
 
 
